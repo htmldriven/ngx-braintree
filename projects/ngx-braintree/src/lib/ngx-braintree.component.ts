@@ -38,7 +38,7 @@ declare var braintree: any;
       <!-- Buttons are projected with styles -->
       <!-- This is being handled via the directive. -->
 
-      
+
     </div>
     <div *ngIf="clientTokenNotReceived">
       <div class="error">Error! Client token not received.</div>
@@ -102,6 +102,7 @@ export class NgxBraintreeComponent implements OnInit {
   @Input() showCardholderName = false;
   @Input() enablePaypalCheckout = false;
   @Input() enablePaypalVault = false;
+  @Input() enableThreeDSecure = false;
   @Input() currency: string;
   @Input() locale: string;
   @Input() enabledStyle: any;
@@ -178,6 +179,9 @@ export class NgxBraintreeComponent implements OnInit {
       }
       if (this.locale) {
         this.configureDropinService.configureLocale(this.dropinConfig, this.locale);
+      }
+      if (this.enableThreeDSecure) {
+        this.configureDropinService.configureThreeDSecure(this.dropinConfig, this.chargeAmount);
       }
 
       braintree.dropin.create(this.dropinConfig, (createErr, instance) => {
