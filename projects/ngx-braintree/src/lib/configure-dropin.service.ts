@@ -21,14 +21,19 @@ export class ConfigureDropinService {
     }
   }
 
-  configurePaypalVault(dropinConfig) {
+  configurePaypalVault(dropinConfig): void {
     dropinConfig.paypal = {
       flow: 'vault'
     }
   }
 
-  configureLocale(dropinConfig, locale) {
+  configureLocale(dropinConfig, locale): void {
     dropinConfig.locale = locale;
   }
 
+  configureThreeDSecure(dropinConfig, chargeAmount): void {
+    dropinConfig.threeDSecure = {
+      amount: chargeAmount,
+    };
+  }
 }
