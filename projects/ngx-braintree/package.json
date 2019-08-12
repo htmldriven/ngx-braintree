@@ -1,6 +1,6 @@
 {
   "name": "ngx-braintree-updated",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "peerDependencies": {
     "@angular/common": "^7.0.0 || ^8.0.0",
     "@angular/core": "^7.0.0 || ^8.0.0"
