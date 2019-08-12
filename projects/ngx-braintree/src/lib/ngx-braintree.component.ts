@@ -193,8 +193,8 @@ export class NgxBraintreeComponent implements OnInit, OnDestroy {
         if (createErr) {
           if (
             !this.isDestroyed
-            || createErr.message !== 'Selector does not reference a valid DOM node.'
-            && createErr.message !== 'options.selector or options.container must reference a valid DOM node.'
+            || (createErr.message !== 'Selector does not reference a valid DOM node.'
+            && createErr.message !== 'options.selector or options.container must reference a valid DOM node.')
           ) {
             console.error(createErr);
           }
