@@ -6,8 +6,6 @@ import { NgxBraintreeComponent } from './ngx-braintree.component';
 })
 export class NgxBraintreePayDirective implements OnInit, OnDestroy {
 
-
-
   constructor(
     private elementRef: ElementRef,
     private renderer: Renderer2,
@@ -30,7 +28,7 @@ export class NgxBraintreePayDirective implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // Set the text on the button to the buttonText property that was sent. 
+    // Set the text on the button to the buttonText property that was sent.
     // this.renderer.setProperty(this.elementRef.nativeElement, 'innerText', this.ngxBtComponent.buttonText);
   }
 

@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, OnDestroy, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, OnDestroy, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { NgxBraintreeService } from './ngx-braintree.service';
 import { ConfigureDropinService } from './configure-dropin.service';
+import { BillingAddress } from './model/billing-address-model';
 
 declare var braintree: any;
 
@@ -87,7 +88,7 @@ declare var braintree: any;
       font-family: monospace;
     }`]
 })
-export class NgxBraintreeComponent implements OnInit, OnDestroy {
+export class NgxBraintreeComponent implements OnInit, OnDestroy, OnChanges {
   @Output() dropinLoaded: EventEmitter<any> = new EventEmitter<any>();
   @Output() paymentStatus: EventEmitter<any> = new EventEmitter<any>();
   @Output() payButtonStatus: EventEmitter<any> = new EventEmitter<any>();
@@ -108,6 +109,8 @@ export class NgxBraintreeComponent implements OnInit, OnDestroy {
   @Input() enabledStyle: any;
   @Input() disabledStyle: any;
   @Input() hideLoader = false;
+  @Input() email: string;
+  @Input() billingAddress: BillingAddress;
 
   clientToken: string;
   nonce: string;
@@ -145,6 +148,12 @@ export class NgxBraintreeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.isDestroyed = true;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.billingAddress || changes.email) {
+      this.configureDropinService.configureThreeDSecure(this.dropinConfig, this.chargeAmount, this.email, this.billingAddress);
+    }
   }
 
   generateDropInUI() {
@@ -186,7 +195,7 @@ export class NgxBraintreeComponent implements OnInit, OnDestroy {
         this.configureDropinService.configureLocale(this.dropinConfig, this.locale);
       }
       if (this.enableThreeDSecure) {
-        this.configureDropinService.configureThreeDSecure(this.dropinConfig, this.chargeAmount);
+        this.configureDropinService.configureThreeDSecure(this.dropinConfig, this.chargeAmount, this.email, this.billingAddress);
       }
 
       braintree.dropin.create(this.dropinConfig, (createErr: Error, instance) => {
@@ -231,7 +240,9 @@ export class NgxBraintreeComponent implements OnInit, OnDestroy {
 
   pay(): void {
     if (this.instance) {
-      this.instance.requestPaymentMethod((err, payload) => {
+      this.instance.requestPaymentMethod({
+        threeDSecure: this.dropinConfig.threeDSecure,
+      }, (err, payload) => {
         if (err) {
           console.error(err);
           this.errorMessage = err;

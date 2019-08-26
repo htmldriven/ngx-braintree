@@ -31,9 +31,11 @@ export class ConfigureDropinService {
     dropinConfig.locale = locale;
   }
 
-  configureThreeDSecure(dropinConfig, chargeAmount): void {
+  configureThreeDSecure(dropinConfig, chargeAmount, email, billingAddress): void {
     dropinConfig.threeDSecure = {
       amount: chargeAmount,
+      email,
+      billingAddress,
     };
   }
 }
