@@ -148,6 +148,11 @@ export class NgxBraintreeComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnDestroy(): void {
     this.isDestroyed = true;
+
+    if (this.instance && this.instance.teardown) {
+      this.instance.teardown();
+      this.instance = undefined;
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
