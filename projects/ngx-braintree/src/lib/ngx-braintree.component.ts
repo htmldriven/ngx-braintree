@@ -90,6 +90,7 @@ declare var braintree: any;
 })
 export class NgxBraintreeComponent implements OnInit, OnDestroy, OnChanges {
   @Output() dropinLoaded: EventEmitter<any> = new EventEmitter<any>();
+  @Output() error: EventEmitter<any> = new EventEmitter<any>();
   @Output() paymentStatus: EventEmitter<any> = new EventEmitter<any>();
   @Output() payButtonStatus: EventEmitter<any> = new EventEmitter<any>();
   @Output() processingStatus: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -255,6 +256,7 @@ export class NgxBraintreeComponent implements OnInit, OnDestroy, OnChanges {
           console.error(err);
           this.errorMessage = err;
           this.processingStatus.next(false);
+          this.error.emit(err);
           return;
         } else {
           this.errorMessage = null;
@@ -275,6 +277,7 @@ export class NgxBraintreeComponent implements OnInit, OnDestroy, OnChanges {
         } catch (e) {
           this.payButtonStatus.next(false);
 
+          this.error.emit(e);
           throw e;
         }
       });
