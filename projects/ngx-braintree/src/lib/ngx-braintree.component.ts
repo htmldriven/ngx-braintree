@@ -247,7 +247,7 @@ export class NgxBraintreeComponent implements OnInit, OnDestroy, OnChanges {
 
   pay(): void {
     if (this.instance) {
-      this.processingStatus.next(true);
+      this.processingStatus.emit(true);
 
       this.instance.requestPaymentMethod({
         threeDSecure: this.dropinConfig.threeDSecure,
@@ -255,7 +255,7 @@ export class NgxBraintreeComponent implements OnInit, OnDestroy, OnChanges {
         if (err) {
           console.error(err);
           this.errorMessage = err;
-          this.processingStatus.next(false);
+          this.processingStatus.emit(false);
           this.error.emit(err);
           return;
         } else {
@@ -275,7 +275,7 @@ export class NgxBraintreeComponent implements OnInit, OnDestroy, OnChanges {
             await this.confirmPay();
           }
         } catch (e) {
-          this.payButtonStatus.next(false);
+          this.payButtonStatus.emit(false);
 
           this.error.emit(e);
           throw e;
