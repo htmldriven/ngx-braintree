@@ -6,6 +6,7 @@ import { ConfigureDropinService } from './configure-dropin.service';
 
 import { NgxBraintreeComponent } from './ngx-braintree.component';
 import { NgxBraintreeDirective } from './ngx-braintree.directive';
+import { NgxBraintreeDisableDuringProcessingDirective } from './ngx-braintree-disable-during-processing.directive';
 import { NgxBraintreePayDirective } from './ngx-braintree-pay.directive';
 
 @NgModule({
@@ -15,10 +16,12 @@ import { NgxBraintreePayDirective } from './ngx-braintree-pay.directive';
   declarations: [
     NgxBraintreeComponent,
     NgxBraintreeDirective,
+    NgxBraintreeDisableDuringProcessingDirective,
     NgxBraintreePayDirective
   ],
   exports: [
     NgxBraintreeComponent,
+    NgxBraintreeDisableDuringProcessingDirective,
     NgxBraintreePayDirective
   ],
   providers: [
