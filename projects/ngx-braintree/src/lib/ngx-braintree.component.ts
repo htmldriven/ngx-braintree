@@ -278,7 +278,6 @@ export class NgxBraintreeComponent implements OnInit, OnDestroy, OnChanges {
           this.payButtonStatus.emit(false);
 
           this.error.emit(e);
-          throw e;
         }
       });
     }
